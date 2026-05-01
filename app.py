@@ -4,17 +4,19 @@
 from flask import Flask, render_template, jsonify, request
 from src.helper import download_embeddings
 
-from langchain_pinecone import PineconeVectorStore
-
-from langchain.chains import create_retrieval_chain
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_core.prompts import ChatPromptTemplate
 
 from src.prompt import *
 import os
 
 
 ##################################################################
+from langchain.chains import create_retrieval_chain
+from langchain.chains.combine_documents import create_stuff_documents_chain
+from langchain_core.prompts import ChatPromptTemplate
+
+from dotenv import load_dotenv
+
+load_dotenv()
 from langchain_openai import ChatOpenAI
 chatModel = ChatOpenAI(model="gpt-4o")
 
@@ -47,6 +49,8 @@ index_name = "medical-chatbot"
 
 # Load Existing index
 # Embed each chunk and upsert the embeddings into your Pinecone index.
+from langchain_pinecone import PineconeVectorStore
+
 docsearch = PineconeVectorStore.from_existing_index(
     index_name=index_name,
     embedding=embeddings

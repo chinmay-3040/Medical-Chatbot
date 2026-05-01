@@ -45,6 +45,9 @@ index = pc.Index(index_name)
 
 #################################################################################################################
 
+
+#converts all the chunks into vector embeddings
+
 from langchain_pinecone import PineconeVectorStore
 
 docsearch = PineconeVectorStore.from_documents(
